@@ -18,6 +18,11 @@
         // Set the hidden inputs with the full name and phone number from the URL
         let full_name = new URLSearchParams(window.location.search).get('full_name');
         let phone = new URLSearchParams(window.location.search).get('phone');
+
+        if (!full_name || !phone) {
+            alert("Forma ma'lumotlarini qayta tekshiring!");
+        }
+
         function sendRequest() {
             fetch("https://mercuryedu.uz/api/pre-order", {
                 method: 'POST',
@@ -39,7 +44,9 @@
         }
 
         // Send the request every 3 seconds
-        const intervalId = setInterval(sendRequest, 3000);
+        if (full_name && phone) {
+            const intervalId = setInterval(sendRequest, 3000);
+        }
     </script>
 </body>
 
