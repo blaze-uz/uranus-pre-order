@@ -45,6 +45,7 @@
 
         // Send the request every 3 seconds
         if (full_name && phone) {
+            sendRequest();
             const intervalId = setInterval(sendRequest, 3000);
         }
     </script>
