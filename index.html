@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pre Order - Uranus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="flex flex-col items-center justify-center h-screen gap-4 bg-gray-100">
+        <div class="w-24 h-24 border-t-4 border-blue-500 rounded-full animate-spin"></div>
+        Sahifani yuklanmoqda, kuting...
+    </div>
+    <script>
+        // Set the hidden inputs with the full name and phone number from the URL
+        let full_name = new URLSearchParams(window.location.search).get('full_name');
+        let phone = new URLSearchParams(window.location.search).get('phone');
+        function sendRequest() {
+            fetch("https://mercuryedu.uz/api/pre-order", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    full_name: full_name,
+                    phone: phone,
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.message; // Redirect to payment gateway URL
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Send the request every 3 seconds
+        const intervalId = setInterval(sendRequest, 3000);
+    </script>
+</body>
+
+</html>
